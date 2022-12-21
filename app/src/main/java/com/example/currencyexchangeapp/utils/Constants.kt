@@ -7,6 +7,8 @@ class Constants {
 
         const val BAR_TITLE = "Currency Converter"
 
+        const val BASE_URL = "https://api.exchangerate.host/"
+
         val CURRENCY_CODES_LIST = listOf(
                 CurrencyCountry("Australia", "AUD"),
                 CurrencyCountry("Brazil", "BRL"),
