@@ -97,7 +97,7 @@ data class Rates(
     @SerializedName("ETB")
     val eTB: Double,
     @SerializedName("EUR")
-    val eUR: Int,
+    val eUR: Double,
     @SerializedName("FJD")
     val fJD: Double,
     @SerializedName("FKP")
