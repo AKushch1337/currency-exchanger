@@ -10,6 +10,4 @@ data class ConvertCurrency(
     val date: String,
     @SerializedName("rates")
     val rates: Rates,
-    @SerializedName("success")
-    val success: Boolean
 )

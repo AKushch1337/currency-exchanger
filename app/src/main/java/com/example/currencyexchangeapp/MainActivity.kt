@@ -11,15 +11,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import com.example.currencyexchangeapp.composables.ConverterScreen
 import com.example.currencyexchangeapp.ui.theme.CurrencyExchangeAppTheme
+import com.example.currencyexchangeapp.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private lateinit var mainViewModel: MainViewModel
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ConverterScreen()
+            mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+            ConverterScreen(this, mainViewModel)
         }
     }
 }

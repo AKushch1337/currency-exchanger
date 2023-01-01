@@ -1,5 +1,7 @@
 package com.example.currencyexchangeapp.composables
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -17,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -25,14 +26,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
+import com.example.currencyexchangeapp.models.Rates
 import com.example.currencyexchangeapp.ui.theme.Purple500
 import com.example.currencyexchangeapp.utils.Constants.Companion.BAR_TITLE
 import com.example.currencyexchangeapp.utils.Constants.Companion.CURRENCY_CODES_LIST
+import com.example.currencyexchangeapp.utils.NetworkResult
+import com.example.currencyexchangeapp.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun ConverterScreen() {
+fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
 
     val fromCurrencyCode = remember {
         mutableStateOf("UAH")
@@ -161,13 +166,41 @@ fun ConverterScreen() {
             Spacer(modifier = Modifier.padding(15.dp))
 
             Button(
-                onClick = {},
+                onClick = {
+                    mainViewModel.getExchangeRates(mainViewModel.provideQueries(fromCurrencyCode.value))
+                    mainViewModel.exchangeRatesResponse.observe(context as LifecycleOwner) { response ->
+                        when (response) {
+                            is NetworkResult.Success -> {
+                                response.data?.let {
+                                    if (amountValue.value.isEmpty()) {
+                                        amountValue.value = "1.00"
+                                    }
+                                    val toValue =
+                                        mainViewModel.getToValue(toCurrencyCode.value, it.rates)
+                                    val amount = amountValue.value.toDouble()
+                                    convertedAmount.value =
+                                        "${mainViewModel.getOutputString(amount * toValue)} ${toCurrencyCode.value}"
+                                    singleConvertedValue.value =
+                                        "1 ${fromCurrencyCode.value} = ${
+                                            mainViewModel.getOutputString(toValue)
+                                        } ${toCurrencyCode.value}"
+                                }
+                            }
+                            is NetworkResult.Error -> {
+                                Toast.makeText(context, response.message, Toast.LENGTH_SHORT).show()
+                            }
+                            is NetworkResult.Loading -> {
+                                Toast.makeText(context, "LOADING", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp))
             {
                 Text(text = "CONVERT", fontSize = 25.sp)
-
             }
             Spacer(modifier = Modifier.padding(15.dp))
             Text(
