@@ -76,6 +76,7 @@ class MainViewModel @Inject constructor(
         }
 
     }
+
     fun getToValue(currencyCode: String, rates: Rates): Double {
         return when (currencyCode) {
             "AUD" -> rates.aUD

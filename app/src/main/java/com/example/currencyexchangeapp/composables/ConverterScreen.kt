@@ -65,12 +65,15 @@ fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
 
     BottomSheetScaffold(
         sheetContent = {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .height(275.dp)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(275.dp)
+            ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     items(CURRENCY_CODES_LIST) { item ->
                         Text(text = "${item.currencyCode}\t ${item.countryName}",
                             modifier = Modifier
@@ -97,18 +100,23 @@ fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
                         fontSize = 35.sp,
                         textAlign = TextAlign.Center,
                         color = if (isDarkMode) Color.White else Color.Black,
-                        style = TextStyle(fontWeight = FontWeight.Black))
+                        style = TextStyle(fontWeight = FontWeight.Black)
+                    )
                 },
-                backgroundColor = if (isDarkMode) Color.Black else Color.White, elevation = 0.dp)
+                backgroundColor = if (isDarkMode) Color.Black else Color.White, elevation = 0.dp
+            )
         },
         scaffoldState = scaffoldState,
         sheetPeekHeight = 0.dp,
         sheetElevation = 6.dp,
         sheetBackgroundColor = Color(0xFFF1F1F1),
-        sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)) {
-        Column(modifier = Modifier
-            .padding(50.dp)
-            .fillMaxSize()) {
+        sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(50.dp)
+                .fillMaxSize()
+        ) {
             Text(text = "FROM", color = Purple500)
             Spacer(modifier = Modifier.padding(5.dp))
             Box(modifier = Modifier
@@ -140,8 +148,10 @@ fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
 
             Spacer(modifier = Modifier.padding(10.dp))
 
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(text = "AMOUNT", color = Purple500)
                 Text(text = fromCurrencyCode.value, color = Purple500)
 
@@ -198,7 +208,8 @@ fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp))
+                    .height(60.dp)
+            )
             {
                 Text(text = "CONVERT", fontSize = 25.sp)
             }
@@ -209,7 +220,8 @@ fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
                     .fillMaxWidth(),
                 fontSize = 30.sp,
                 color = Color.Black,
-                style = TextStyle(textAlign = TextAlign.Center))
+                style = TextStyle(textAlign = TextAlign.Center)
+            )
             Spacer(modifier = Modifier.padding(10.dp))
             Text(
                 text = singleConvertedValue.value,
@@ -217,7 +229,8 @@ fun ConverterScreen(context: Context, mainViewModel: MainViewModel) {
                     .fillMaxWidth(),
                 fontSize = 30.sp,
                 color = Color.Black,
-                style = TextStyle(textAlign = TextAlign.Center))
+                style = TextStyle(textAlign = TextAlign.Center)
+            )
         }
     }
 }
