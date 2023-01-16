@@ -342,4 +342,40 @@ data class Rates(
     val zMW: Double,
     @SerializedName("ZWL")
     val zWL: Double
-)
+) {
+    val rateMap: Map<String, Double> = mapOf(
+        "AUD" to aUD,
+        "BRL" to bRL,
+        "BGN" to bGN,
+        "CAD" to cAD,
+        "CNY" to cNY,
+        "HRK" to hRK,
+        "CZK" to cZK,
+        "DKK" to dKK,
+        "EUR" to eUR,
+        "GBP" to gBP,
+        "HKD" to hKD,
+        "HUF" to hUF,
+        "ISK" to iSK,
+        "INR" to iNR,
+        "IDR" to iDR,
+        "ILS" to iLS,
+        "JPY" to jPY,
+        "KRW" to kRW,
+        "MYR" to mYR,
+        "MXN" to mXN,
+        "NZD" to nZD,
+        "NOK" to nOK,
+        "PHP" to pHP,
+        "PLN" to pLN,
+        "RON" to rON,
+        "SGD" to sGD,
+        "ZAR" to zAR,
+        "SEK" to sEK,
+        "CHF" to cHF,
+        "THB" to tHB,
+        "TRY" to tRY,
+        "USD" to uSD,
+        "UAH" to uAH
+    )
+}

@@ -78,43 +78,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun getToValue(currencyCode: String, rates: Rates): Double {
-        return when (currencyCode) {
-            "AUD" -> rates.aUD
-            "BRL" -> rates.bRL
-            "BGN" -> rates.bGN
-            "CAD" -> rates.cAD
-            "CNY" -> rates.cNY
-            "HRK" -> rates.hRK
-            "CZK" -> rates.cZK
-            "DKK" -> rates.dKK
-            "EUR" -> rates.eUR
-            "GBP" -> rates.gBP
-            "HKD" -> rates.hKD
-            "HUF" -> rates.hUF
-            "ISK" -> rates.iSK
-            "INR" -> rates.iNR
-            "IDR" -> rates.iDR
-            "ILS" -> rates.iLS
-            "JPY" -> rates.jPY
-            "KRW" -> rates.kRW
-            "MYR" -> rates.mYR
-            "MXN" -> rates.mXN
-            "NZD" -> rates.nZD
-            "NOK" -> rates.nOK
-            "PHP" -> rates.pHP
-            "PLN" -> rates.pLN
-            "RON" -> rates.rON
-            "SGD" -> rates.sGD
-            "ZAR" -> rates.zAR
-            "SEK" -> rates.sEK
-            "CHF" -> rates.cHF
-            "THB" -> rates.tHB
-            "TRY" -> rates.tRY
-            "USD" -> rates.uSD
-            "UAH" -> rates.uAH
-            else -> 0.00
-        }
+        return rates.rateMap[currencyCode.uppercase()] ?: 0.00
     }
+
 
     fun provideQueries(from: String): HashMap<String, String> {
         val queries = HashMap<String, String>()
